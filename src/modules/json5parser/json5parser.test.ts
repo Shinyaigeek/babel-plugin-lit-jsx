@@ -9,4 +9,12 @@ describe("json5parser", () => {
             }
         })
     })
+
+    test("test2.json without comments should be load", () => {
+        expect(json5parser(join(__dirname, "./test2.json"))).toEqual({
+            hoge: {
+                bar: "fuga"
+            }
+        })
+    })
 })
