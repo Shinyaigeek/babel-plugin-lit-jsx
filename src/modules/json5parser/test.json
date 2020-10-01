@@ -1,0 +1,6 @@
+{
+    // This is test data for json5parser
+    "hoge": {
+        "bar": "fuga" // I can parse comment because this format is json5
+    }
+}
