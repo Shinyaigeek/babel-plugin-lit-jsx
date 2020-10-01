@@ -1,0 +1,31 @@
+{
+  "name": "tsx2template-literal",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shinyaigeek/tsx2template-literal.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Shinyaigeek/tsx2template-literal/issues"
+  },
+  "homepage": "https://github.com/Shinyaigeek/tsx2template-literal#readme",
+  "devDependencies": {
+    "typescript": "^4.0.3"
+  },
+  "dependencies": {
+    "@types/jest": "^26.0.14",
+    "@types/node": "^14.11.2",
+    "eslint": "^7.10.0",
+    "jest": "^26.4.2",
+    "prettier": "^2.1.2",
+    "ts-jest": "^26.4.0"
+  }
+}
