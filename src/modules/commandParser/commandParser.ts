@@ -3,9 +3,9 @@ import { Schema } from "./schema";
 
 export const commandParser = (argv: string[]) => {
   const program = new Command();
-  program.option("-t, --tsconfig").option("-e, --entry").option("-d, --dist");
+  program.option("-t, --tsconfig").option("-e, --entry").option("-o, --output");
 
-  const schema = (program.parse(argv) as any) as Schema;
+  program.parse(argv);
 
-  return schema;
+  return program as any as Schema;
 };
