@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "build": "ts-node ./src/main.ts -t=asdf"
   },
   "repository": {
     "type": "git",
@@ -29,7 +30,8 @@
     "jest": "^26.4.2",
     "json5": "^2.1.3",
     "prettier": "^2.1.2",
-    "ts-jest": "^26.4.1"
+    "ts-jest": "^26.4.1",
+    "ts-node": "^9.0.0"
   },
   "jest": {
     "moduleFileExtensions": [
