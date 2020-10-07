@@ -1,1 +1,1 @@
-const App = () => <div>asdf</div>
+const App = () => <div>asdf</div>;
