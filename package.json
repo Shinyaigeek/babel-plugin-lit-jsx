@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "build": "ts-node ./src/main.ts"
+    "build": "ts-node ./src/main.ts",
+    "lint:script": "eslint src/*/**.ts src/*/**.tsx src/*.tsx src/**.ts src_extension/*/**.js src_extension/**.tsx src_extension/**.ts",
+    "lint": "yarn run lint:script",
+    "format": "prettier **/*.tsx **/*.ts --write --config .prettierrc"
   },
   "repository": {
     "type": "git",
@@ -19,14 +22,16 @@
   },
   "homepage": "https://github.com/Shinyaigeek/tsx2template-literal#readme",
   "devDependencies": {
+    "@types/jest": "^26.0.14",
     "@types/react": "^16.9.51",
-    "typescript": "^4.0.3",
+    "@typescript-eslint/parser": "^4.4.0",
+    "eslint": "^7.10.0",
+    "husky": "^4.3.0",
+    "jest": "^26.4.2",
     "prettier": "^2.1.2",
     "ts-jest": "^26.4.1",
     "ts-node": "^9.0.0",
-    "eslint": "^7.10.0",
-    "jest": "^26.4.2",
-    "@types/jest": "^26.0.14"
+    "typescript": "^4.0.3"
   },
   "dependencies": {
     "@types/json5": "^0.0.30",
