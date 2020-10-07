@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest",
     "build": "ts-node ./src/main.ts",
-    "lint:script": "eslint src/*/**.ts src/*/**.tsx src/*.tsx src/**.ts src_extension/*/**.js src_extension/**.tsx src_extension/**.ts",
+    "lint:script": "eslint **/*.tsx **/*.ts",
     "lint": "yarn run lint:script",
     "format": "prettier **/*.tsx **/*.ts --write --config .prettierrc"
   },
@@ -59,10 +59,5 @@
     "testMatch": [
       "**/*.test.ts"
     ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "yarn run lint"
-    }
   }
 }
