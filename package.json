@@ -59,5 +59,10 @@
     "testMatch": [
       "**/*.test.ts"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn run lint"
+    }
   }
 }
