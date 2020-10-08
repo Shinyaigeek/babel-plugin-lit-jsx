@@ -1,17 +1,25 @@
-import { nextTick } from "process";
 import * as tsc from "typescript";
 
-export function convertTsxToString(node: tsc.Node) {
+type f = (
+  source: tsc.SourceFile
+) => (
+  context: tsc.TransformationContext
+) => (rootNode: tsc.SourceFile) => tsc.SourceFile;
 
-  if (node.kind === 270) {
-    console.log("this is jsx");
+export const convertTsxToString: f = (source) => {
+  return (context) => {
+    return (rootNode) => {
+      function visitor(node: tsc.Node): tsc.Node {
+        if (tsc.isJsxElement(node)) {
+          const stringJsx = node.getFullText(source);
 
-    console.log(node);
-  }
+          return tsc.createStringLiteral(stringJsx);
+        }
 
-  return next();
+        return tsc.visitEachChild(node, visitor, context);
+      }
 
-  function next(): boolean {
-    return tsc.forEachChild(node, convertTsxToString) ?? false;
-  }
-}
+      return tsc.visitEachChild(rootNode, visitor, context);
+    };
+  };
+};
