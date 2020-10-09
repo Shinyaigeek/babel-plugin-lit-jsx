@@ -1,5 +1,5 @@
 {
-  "name": "tsx2template-literal",
+  "name": "lit-jsx",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -12,15 +12,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Shinyaigeek/tsx2template-literal.git"
+    "url": "git+https://github.com/Shinyaigeek/lit-jsx.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Shinyaigeek/tsx2template-literal/issues"
+    "url": "https://github.com/Shinyaigeek/lit-jsx/issues"
   },
-  "homepage": "https://github.com/Shinyaigeek/tsx2template-literal#readme",
+  "homepage": "https://github.com/Shinyaigeek/lit-jsx#readme",
   "devDependencies": {
     "@types/jest": "^26.0.14",
     "@types/react": "^16.9.51",
