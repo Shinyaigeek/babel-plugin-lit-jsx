@@ -3,5 +3,5 @@ interface Props {
 }
 
 export const Button = (props: Props) => {
-  return <button>{props.label}</button>;
+  return <button className="button">{props.label}</button>;
 };
