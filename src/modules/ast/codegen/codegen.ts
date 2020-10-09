@@ -1,7 +1,7 @@
-import * as tsc from "typescript";
-import { fileWriter } from "../../file/fileWriter/fileWriter";
+import { File } from "@babel/types";
+import generate from "@babel/generator";
 
-export const codegen = (source: tsc.SourceFile, printer: tsc.Printer, dist: string) => {
-    const outputSource =  printer.printFile(source);
-    return fileWriter(outputSource, dist);
-}
+export const codegen = (ast: File) => {
+  const { code } = generate(ast);
+  return code;
+};
