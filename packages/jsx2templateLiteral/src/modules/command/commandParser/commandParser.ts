@@ -7,5 +7,5 @@ export const commandParser = (argv: string[]) => {
 
   program.parse(argv);
 
-  return program as any as Schema;
+  return (program as any) as Schema;
 };

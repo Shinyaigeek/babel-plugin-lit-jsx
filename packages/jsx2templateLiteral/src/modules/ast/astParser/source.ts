@@ -1,3 +1,3 @@
 const hoge = "bar";
 
-console.log(hoge)
+console.log(hoge);

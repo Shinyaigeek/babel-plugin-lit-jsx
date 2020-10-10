@@ -1,5 +1,5 @@
 export interface Schema {
-    tsconfig: string;
-    entry: string;
-    output: string;
+  tsconfig: string;
+  entry: string;
+  output: string;
 }
