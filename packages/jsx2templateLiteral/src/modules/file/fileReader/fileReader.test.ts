@@ -15,6 +15,6 @@ describe("file reader", () => {
       }
     })();
 
-    expect(result).toBe("error")
+    expect(result).toBe("error");
   });
 });
