@@ -9,11 +9,11 @@ import {
 export const resolveAttrValue = (attrValue: any) => {
   if (isJSXExpressionContainer(attrValue)) {
     if (isIdentifier(attrValue.expression)) {
-      return attrValue.expression.name;
+      return attrValue.expression;
     }
 
     if (isArrowFunctionExpression(attrValue.expression)) {
-      return attrValue.expression.body;
+      return attrValue.expression;
     }
   }
 
