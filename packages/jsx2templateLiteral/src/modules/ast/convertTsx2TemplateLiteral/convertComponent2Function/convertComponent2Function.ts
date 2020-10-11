@@ -15,9 +15,8 @@ import { isUserDefinedComponent } from "../../../util/isUserDefinedComponent/isU
 import { resolveAttrValue } from "../resolveAttrValue/resolveAttrValue";
 
 export const convertComponent2Function = (nodePath: NodePath<JSXElement>) => {
-  const tagName = getTagNameFromElement(nodePath);
-
-  if (isUserDefinedComponent(tagName)) {
+  if (isUserDefinedComponent(nodePath)) {
+    const tagName = getTagNameFromElement(nodePath);
     nodePath.replaceWith(
       callExpression(identifier(tagName), [
         objectExpression(
