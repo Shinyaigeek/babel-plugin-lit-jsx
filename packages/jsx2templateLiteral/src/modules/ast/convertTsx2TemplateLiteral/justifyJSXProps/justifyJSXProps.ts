@@ -1,5 +1,8 @@
 import { NodePath } from "@babel/traverse";
 import { jsxAttribute, JSXAttribute, jsxIdentifier } from "@babel/types";
+import { getPropsKey } from "../getPropsKey/getPropsKey";
+import { isEventListener } from "../isEventListener/isEventListener";
+import { justifyEventListener } from "../justifyEventListener/justifyEventListener";
 
 type TableKeys = "className";
 
@@ -10,13 +13,16 @@ const table: {
 };
 
 export const justifyJSXProps = (nodePath: NodePath<JSXAttribute>) => {
-  const key = nodePath.node.name.name;
+  const key = getPropsKey(nodePath);
 
-  // TODO why key can be JSXIdentifier ?
-  if (typeof key === "string" && key in table) {
+  if (key in table) {
     const proper = table[key as TableKeys];
     nodePath.replaceWith(
       jsxAttribute(jsxIdentifier(proper), nodePath.node.value)
     );
+  }
+
+  if (isEventListener(nodePath)) {
+    justifyEventListener(nodePath);
   }
 };

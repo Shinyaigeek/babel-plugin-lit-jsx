@@ -1,10 +1,20 @@
-import { identifier, isJSXExpressionContainer } from "@babel/types";
+import {
+  identifier,
+  isArrowFunctionExpression,
+  isIdentifier,
+  isJSXExpressionContainer,
+} from "@babel/types";
 
 //TODO 型付け
 export const resolveAttrValue = (attrValue: any) => {
   if (isJSXExpressionContainer(attrValue)) {
-    //@ts-ignore
-    return identifier(attrValue.expression.name);
+    if (isIdentifier(attrValue.expression)) {
+      return attrValue.expression;
+    }
+
+    if (isArrowFunctionExpression(attrValue.expression)) {
+      return attrValue.expression;
+    }
   }
 
   return attrValue;
