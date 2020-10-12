@@ -1,7 +1,3 @@
-interface Props {
-  label: string;
-}
-
-export const Button = (props: Props) => {
-  return <button className="button">{props.label}</button>;
+export const Button = () => {
+  return <button className="button">"asdf"</button>;
 };
