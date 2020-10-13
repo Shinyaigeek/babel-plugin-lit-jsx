@@ -1,13 +1,30 @@
+import { existsSync } from "fs";
+import { resolve } from "path";
+
+const supportedFile = [".ts", ".js", ".tsx", ".jsx", ".json"];
+
 export const resolvePath = (absPath: string, rel: string) => {
-  if (rel[0] === "/") {
-    return rel;
+  const basePath = isAbsolutePathIncludesFileExtension(absPath)
+    ? absPath.split("/").slice(0, -1).join("/")
+    : absPath;
+
+  if (isAbsolutePathIncludesFileExtension(rel)) {
+    return resolve(basePath, rel);
   }
 
-  if ((rel[0] === "." && rel[1] === "/") || rel[0] !== ".") {
-    // TODO なんとかする
-    const asdf = absPath.split("/");
-    asdf.pop();
-    asdf.push(rel.replace("./", "") + ".tsx");
-    return asdf.join("/");
+  for (let file of supportedFile) {
+    const p = resolve(basePath, rel + file);
+
+    if (existsSync(p)) {
+      return p;
+    }
   }
+
+  throw new Error("there is no supported file");
+};
+
+const isAbsolutePathIncludesFileExtension = (absPath: string) => {
+  return supportedFile.some((file) => {
+    return file === absPath.slice(-1 * file.length);
+  });
 };
