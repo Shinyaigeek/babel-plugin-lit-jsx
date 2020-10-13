@@ -4,7 +4,7 @@ import { resolve } from "path";
 const supportedFile = [".ts", ".js", ".tsx", ".jsx", ".json"];
 
 export const resolvePath = (absPath: string, rel: string) => {
-  const basePath = !isAbsolutePathIncludesFileExtension(absPath)
+  const basePath = isAbsolutePathIncludesFileExtension(absPath)
     ? absPath.split("/").slice(0, -1).join("/")
     : absPath;
 
@@ -25,6 +25,6 @@ export const resolvePath = (absPath: string, rel: string) => {
 
 const isAbsolutePathIncludesFileExtension = (absPath: string) => {
   return supportedFile.some((file) => {
-    return file === absPath.slice(-1 * file.length - 1);
+    return file === absPath.slice(-1 * file.length);
   });
 };
