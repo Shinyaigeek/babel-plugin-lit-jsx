@@ -1,13 +1,13 @@
 import { NodePath } from "@babel/traverse";
 import { isJSX, isJSXOpeningElement, JSXElement } from "@babel/types";
 
-export const getTagNameFromElement = (element: NodePath<JSXElement>) => {
+export const getTagNameFromElement = (element: JSXElement) => {
   //TODO :thinking_face:
   const tagName = isJSXOpeningElement(element)
     ? //@ts-ignore
-      element.node.name.name
+      element.name.name
     : //@ts-ignore
-      element.node.openingElement.name.name;
+      element.openingElement.name.name;
 
   if (!tagName) {
     throw new Error("jsx element is not jsx identifier");

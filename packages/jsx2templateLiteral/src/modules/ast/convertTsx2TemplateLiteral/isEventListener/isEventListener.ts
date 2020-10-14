@@ -12,7 +12,7 @@ export const isEventListener = (attr: NodePath<JSXAttribute>) => {
     throw new Error("invalid node type");
   }
   return (
-    !isUserDefinedComponent(attr.parentPath as NodePath<JSXElement>) &&
+    !isUserDefinedComponent(attr.parentPath.node as JSXElement) &&
     (attr.node.name.name as string)[0] === "o" &&
     (attr.node.name.name as string)[1] === "n"
   );
