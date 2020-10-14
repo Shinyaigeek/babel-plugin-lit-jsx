@@ -4,6 +4,7 @@ import { join } from "path";
 import { resolvePath } from "../../file/resolvePath/resolvePath";
 import { compileEachFile } from "../compileEachFile/compileEachFile";
 import { convertComponent2Function } from "./convertComponent2Function/convertComponent2Function";
+import { convertReturnedJSXElementToString } from "./convertReturnedJSXElementToString/convertReturnedJSXElementToString";
 import { justifyJSXProps } from "./justifyJSXProps/justifyJSXProps";
 
 export const convertTsx2TemplateLiteral = (ast: File, target: string) => {
@@ -16,6 +17,12 @@ export const convertTsx2TemplateLiteral = (ast: File, target: string) => {
     },
     ImportDeclaration(nodePath) {
       compileEachFile(resolvePath(target, nodePath.node.source.value)!);
+    },
+  });
+
+  traverse(ast, {
+    ReturnStatement(nodePath) {
+      convertReturnedJSXElementToString(nodePath);
     },
   });
 };

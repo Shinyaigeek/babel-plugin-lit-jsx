@@ -5,7 +5,7 @@ import { convertTsx2TemplateLiteral } from "../convertTsx2TemplateLiteral/conver
 export const compileEachFile = (target: string) => {
   const ast = astParser(target);
 
-  const result = convertTsx2TemplateLiteral(ast, target);
+  convertTsx2TemplateLiteral(ast, target);
 
   console.log(codegen(ast));
 };
