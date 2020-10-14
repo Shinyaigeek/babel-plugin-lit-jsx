@@ -33,7 +33,6 @@ export class ConvertJSXElementToTemplateLiteral {
   }
 
   render() {
-    console.log(this.queries, this.expressions);
     return templateLiteral(this.queries, this.expressions);
   }
 
