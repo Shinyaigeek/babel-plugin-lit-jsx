@@ -8,14 +8,20 @@ import {
   templateElement,
   templateLiteral,
 } from "@babel/types";
-import { ConvertJsxElementToTemplateLiteral } from "../convertJsxElementToTemplateLiteral/convertJsxElementToTemplateLiteral";
+import { ConvertJSXElementToTemplateLiteral } from "../convertJsxElementToTemplateLiteral/convertJsxElementToTemplateLiteral";
 
 //TODO later
 
 export const convertReturnedJSXElementToString = (
   nodePath: NodePath<ReturnStatement>
 ) => {
-  const Convert = ConvertJsxElementToTemplateLiteral(nodePath.node.argument);
+  if (!isJSXElement(nodePath.node.argument)) {
+    throw new Error("pure functional component should return jsx element");
+  }
+
+  const Convert = new ConvertJSXElementToTemplateLiteral(
+    nodePath.node.argument
+  );
   Convert.traverse();
-  return Convert.render();
+  nodePath.replaceWith(Convert.render());
 };
