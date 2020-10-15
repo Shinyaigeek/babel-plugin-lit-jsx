@@ -1,5 +1,11 @@
 import { NodePath } from "@babel/traverse";
-import { jsxAttribute, JSXAttribute, jsxIdentifier } from "@babel/types";
+import {
+  isStringLiteral,
+  jsxAttribute,
+  JSXAttribute,
+  jsxIdentifier,
+  stringLiteral,
+} from "@babel/types";
 import { getPropsKey } from "../getPropsKey/getPropsKey";
 import { isEventListener } from "../isEventListener/isEventListener";
 import { justifyEventListener } from "../justifyEventListener/justifyEventListener";
@@ -17,9 +23,18 @@ export const justifyJSXProps = (nodePath: NodePath<JSXAttribute>) => {
 
   if (key in table) {
     const proper = table[key as TableKeys];
-    nodePath.replaceWith(
-      jsxAttribute(jsxIdentifier(proper), nodePath.node.value)
-    );
+    if (isStringLiteral(nodePath.node.value)) {
+      nodePath.replaceWith(
+        jsxAttribute(
+          jsxIdentifier(proper),
+          stringLiteral(`"${nodePath.node.value.value}"`)
+        )
+      );
+    } else {
+      nodePath.replaceWith(
+        jsxAttribute(jsxIdentifier(proper), nodePath.node.value)
+      );
+    }
   }
 
   if (isEventListener(nodePath)) {
