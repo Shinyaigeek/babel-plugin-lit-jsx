@@ -1,3 +1,11 @@
-export const Button = () => {
-  return <button className="button">"asdf"</button>;
+interface Props {
+  label: string;
+}
+
+export const Button = (props: Props) => {
+  return (
+    <button className="button" onClick={(evt) => console.log(evt)}>
+      {props.label}
+    </button>
+  );
 };

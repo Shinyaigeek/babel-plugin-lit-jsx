@@ -7,6 +7,6 @@ export const astParser = (entry: string) => {
 
   return parse(source, {
     sourceType: "module",
-    plugins: ["jsx"],
+    plugins: ["jsx", "typescript"],
   });
 };
