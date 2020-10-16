@@ -2,7 +2,7 @@ import { NodePath } from "@babel/traverse";
 import { isImportDeclaration, isImportSpecifier, Program } from "@babel/types";
 
 export const htmlImportedFromLitHtml = (rootNode: NodePath<Program>) => {
-  return rootNode.node.body.every((child) => {
+  return !rootNode.node.body.every((child) => {
     if (isImportDeclaration(child)) {
       if (child.source.value === "lit-html") {
         if (
