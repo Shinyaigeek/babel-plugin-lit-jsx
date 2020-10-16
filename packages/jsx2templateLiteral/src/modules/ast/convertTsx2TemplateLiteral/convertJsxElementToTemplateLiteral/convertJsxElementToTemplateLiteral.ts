@@ -61,7 +61,6 @@ export class ConvertJSXElementToTemplateLiteral {
           throw new Error("spread property is not supported");
         }
         if (isJSXExpressionContainer(attr.value)) {
-          console.log(attr);
           this.query += ` ${attr.name.name}=`;
           this.queries.push(
             templateElement({
