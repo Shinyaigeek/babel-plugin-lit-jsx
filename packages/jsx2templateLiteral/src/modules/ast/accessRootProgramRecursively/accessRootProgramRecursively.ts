@@ -2,7 +2,7 @@ import { NodePath } from "@babel/traverse";
 import { isProgram } from "@babel/types";
 
 export const accessRootProgramRecursively = (
-  entry: NodePath
+  entry: NodePath<any>
 ): NodePath<ParentNode> => {
   const parentNode = entry.parentPath;
   if (isProgram(parentNode.node)) {
