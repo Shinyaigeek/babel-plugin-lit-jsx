@@ -11,8 +11,9 @@ import {
 import { htmlImportedFromLitHtml } from "../htmlImportedFromLitHtml/htmlImportedFromLitHtml";
 
 export const insertHTMLImport = (rootNode: NodePath<Program>) => {
-  if (htmlImportedFromLitHtml(rootNode)) {
-    rootNode.insertBefore(
+  if (!htmlImportedFromLitHtml(rootNode)) {
+    rootNode.unshiftContainer(
+      "body",
       importDeclaration(
         [importSpecifier(identifier("html"), identifier("html"))],
         stringLiteral("lit-html")
