@@ -1,3 +1,4 @@
+import { html } from "lit-html";
 interface Props {
   label: string;
 }

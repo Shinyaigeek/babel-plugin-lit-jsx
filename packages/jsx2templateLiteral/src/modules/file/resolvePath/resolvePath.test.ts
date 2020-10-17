@@ -6,20 +6,20 @@ const abs = join(__dirname, "./from.ts");
 
 describe("resolvePath", () => {
   test("abs/from.ts -> ./to.ts", () => {
-    expect(existsSync(resolvePath(abs, "./to.ts"))).toBeTruthy();
+    expect(existsSync(resolvePath(abs, "./to.tsx")!)).toBeTruthy();
   });
 
   test("abs/from.ts -> to.ts", () => {
-    expect(existsSync(resolvePath(abs, "to.ts"))).toBeTruthy();
+    expect(existsSync(resolvePath(abs, "to.tsx")!)).toBeTruthy();
   });
 
   test("abs/from.ts -> ./to", () => {
-    expect(existsSync(resolvePath(abs, "./to"))).toBeTruthy();
+    expect(existsSync(resolvePath(abs, "./to")!)).toBeTruthy();
   });
 
   test("abs/from.ts -> ../../../../package.json", () => {
     expect(
-      existsSync(resolvePath(abs, "../../../../package.json"))
+      existsSync(resolvePath(abs, "../../../../package.json")!)
     ).toBeTruthy();
   });
 });
