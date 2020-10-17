@@ -3,6 +3,6 @@ import { ConvertJSXElementToTemplateLiteral } from "./convertJsxElementToTemplat
 describe("convertJsxElementToTemplateLiteral", () => {
   test("simple jsx", () => {
 
-    const converter = new ConvertJSXElementToTemplateLiteral(jsx);
+    // const converter = new ConvertJSXElementToTemplateLiteral(jsx);
   });
 });
