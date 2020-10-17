@@ -1,7 +1,7 @@
 import { existsSync } from "fs";
 import { resolve } from "path";
 
-const supportedFile = [".ts", ".js", ".tsx", ".jsx", ".json"];
+const supportedFile = [".tsx", ".jsx"];
 
 export const resolvePath = (absPath: string, rel: string) => {
   const basePath = isAbsolutePathIncludesFileExtension(absPath)
