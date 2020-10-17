@@ -1,6 +1,7 @@
 import { NodePath } from "@babel/traverse";
 import {
   isJSXElement,
+  isJSXFragment,
   JSXElement,
   returnStatement,
   ReturnStatement,
@@ -18,7 +19,10 @@ import { tagHtmlPrefix } from "../tagHtmlPrefix/tagHtmlPrefix";
 export const convertReturnedJSXElementToString = (
   nodePath: NodePath<ReturnStatement>
 ) => {
-  if (isJSXElement(nodePath.node.argument)) {
+  if (
+    isJSXElement(nodePath.node.argument) ||
+    isJSXFragment(nodePath.node.argument)
+  ) {
     const Convert = new ConvertJSXElementToTemplateLiteral(
       nodePath.node.argument
     );
