@@ -11,6 +11,7 @@ import {
   isJSXText,
   isSpreadProperty,
   JSXElement,
+  JSXFragment,
   nullLiteral,
   TemplateElement,
   templateElement,
@@ -21,11 +22,11 @@ import {
 import { resolveAttrValue } from "../resolveAttrValue/resolveAttrValue";
 
 export class ConvertJSXElementToTemplateLiteral {
-  element: JSXElement;
+  element: JSXElement | JSXFragment;
   queries: TemplateElement[];
   expressions: Expression[];
   query: string;
-  constructor(props: JSXElement) {
+  constructor(props: JSXElement | JSXFragment) {
     this.element = props;
     this.queries = [];
     this.expressions = [];
@@ -50,7 +51,7 @@ export class ConvertJSXElementToTemplateLiteral {
     this.expressions.push(expression);
   }
 
-  handleQueries(jsx: JSXElement) {
+  handleQueries(jsx: JSXElement | JSXFragment) {
     if (isJSXElement(jsx)) {
       if (!isJSXIdentifier(jsx.openingElement.name)) {
         throw new Error("jsx should be identifier");
@@ -123,6 +124,28 @@ export class ConvertJSXElementToTemplateLiteral {
         }
         this.query += `</${jsx.closingElement?.name.name}>`;
       }
+    }
+
+    if (isJSXFragment(jsx)) {
+      jsx.children.forEach((child) => {
+        if (isJSXText(child)) {
+          this.query += child.value;
+        }
+
+        if (isJSXElement(child)) {
+          this.handleQueries(child);
+        }
+
+        if (isJSXExpressionContainer(child)) {
+          this.queries.push(
+            templateElement({
+              raw: this.query,
+            })
+          );
+          this.query = "";
+          this.handleExpressions(child);
+        }
+      });
     }
   }
 }
