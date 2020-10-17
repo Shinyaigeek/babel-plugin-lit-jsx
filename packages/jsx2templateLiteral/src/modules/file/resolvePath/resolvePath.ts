@@ -19,8 +19,6 @@ export const resolvePath = (absPath: string, rel: string) => {
       return p;
     }
   }
-
-  throw new Error("there is no supported file");
 };
 
 const isAbsolutePathIncludesFileExtension = (absPath: string) => {
