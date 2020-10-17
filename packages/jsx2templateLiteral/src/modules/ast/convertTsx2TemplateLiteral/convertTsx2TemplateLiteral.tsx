@@ -16,7 +16,10 @@ export const convertTsx2TemplateLiteral = (ast: File, target: string) => {
       convertComponent2Function(nodePath);
     },
     ImportDeclaration(nodePath) {
-      compileEachFile(resolvePath(target, nodePath.node.source.value)!);
+      const importedJsxPath = resolvePath(target, nodePath.node.source.value);
+      if (importedJsxPath) {
+        compileEachFile(importedJsxPath);
+      }
     },
   });
 
