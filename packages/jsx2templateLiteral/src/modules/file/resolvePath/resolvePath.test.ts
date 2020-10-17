@@ -5,19 +5,19 @@ import { resolvePath } from "./resolvePath";
 const abs = join(__dirname, "./from.ts");
 
 describe("resolvePath", () => {
-  test("abs/from.ts -> ./to.ts", () => {
+  test("abs/from.tsx -> ./to.tsx", () => {
     expect(existsSync(resolvePath(abs, "./to.tsx")!)).toBeTruthy();
   });
 
-  test("abs/from.ts -> to.ts", () => {
+  test("abs/from.tsx -> to.tsx", () => {
     expect(existsSync(resolvePath(abs, "to.tsx")!)).toBeTruthy();
   });
 
-  test("abs/from.ts -> ./to", () => {
+  test("abs/from.tsx -> ./to", () => {
     expect(existsSync(resolvePath(abs, "./to")!)).toBeTruthy();
   });
 
-  test("abs/from.ts -> ../../../../package.json", () => {
+  test("abs/from.tsx -> ../../../../package.json", () => {
     expect(
       existsSync(resolvePath(abs, "../../../../package.json")!)
     ).toBeTruthy();
