@@ -25,4 +25,4 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: yarn install --frozen-lockfile --cache-folder ~/workspace/.yarn-cache
     - run: yarn build
-    - run: yarn test
+    - run: lerna run test
