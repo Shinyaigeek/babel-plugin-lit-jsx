@@ -5,6 +5,7 @@ import {
   isExportNamedDeclaration,
   isFunctionDeclaration,
   isJSXElement,
+  isJSXFragment,
   isReturnStatement,
   isVariableDeclaration,
 } from "@babel/types";
@@ -31,10 +32,15 @@ export const extractJsxElementFromSouceFile = (target: string) => {
           if (isBlockStatement(arrow.body)) {
             const returnStatement = arrow.body.body[0];
             if (isReturnStatement(returnStatement)) {
-              return returnStatement.argument;
+              if (
+                isJSXElement(returnStatement.argument) ||
+                isJSXFragment(returnStatement.argument)
+              ) {
+                return returnStatement.argument;
+              }
             }
           }
-          if (isJSXElement(arrow.body)) {
+          if (isJSXElement(arrow.body) || isJSXFragment(arrow.body)) {
             return arrow.body;
           }
         }
@@ -45,7 +51,12 @@ export const extractJsxElementFromSouceFile = (target: string) => {
         if (isBlockStatement(component.body)) {
           const returnStatement = component.body.body[0];
           if (isReturnStatement(returnStatement)) {
-            return returnStatement.argument;
+            if (
+              isJSXElement(returnStatement.argument) ||
+              isJSXFragment(returnStatement.argument)
+            ) {
+              return returnStatement.argument;
+            }
           }
         }
       }
