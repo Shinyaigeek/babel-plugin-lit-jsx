@@ -2,8 +2,10 @@ import {
   identifier,
   isArrowFunctionExpression,
   isIdentifier,
+  isJSXElement,
   isJSXExpressionContainer,
 } from "@babel/types";
+import { convertComponent2Function } from "../convertComponent2Function/convertComponent2Function";
 
 //TODO 型付け
 export const resolveAttrValue = (attrValue: any) => {
@@ -13,6 +15,10 @@ export const resolveAttrValue = (attrValue: any) => {
     }
 
     if (isArrowFunctionExpression(attrValue.expression)) {
+      return attrValue.expression;
+    }
+
+    if (isJSXElement(attrValue.expression)) {
       return attrValue.expression;
     }
   }

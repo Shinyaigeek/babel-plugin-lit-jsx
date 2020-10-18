@@ -2,6 +2,8 @@ import { NodePath } from "@babel/traverse";
 import {
   callExpression,
   identifier,
+  isJSXAttribute,
+  isJSXIdentifier,
   jsxElement,
   JSXElement,
   jsxExpressionContainer,
@@ -21,12 +23,19 @@ export const convertComponent2Function = (nodePath: NodePath<JSXElement>) => {
       callExpression(identifier(tagName), [
         objectExpression(
           nodePath.node.openingElement.attributes.map((attr) => {
-            return objectProperty(
-              //@ts-ignore
-              identifier((attr as JSXIdentifier).name.name),
-              //@ts-ignore
-              resolveAttrValue(attr.value)
-            );
+            //TODO
+            if (isJSXAttribute(attr)) {
+              if (isJSXIdentifier(attr.name)) {
+                return objectProperty(
+                  identifier(attr.name.name),
+                  resolveAttrValue(attr.value)
+                );
+              } else {
+                throw new Error("jsx named space is not supported");
+              }
+            } else {
+              throw new Error("spread attribute is not supported");
+            }
           })
         ),
       ])
