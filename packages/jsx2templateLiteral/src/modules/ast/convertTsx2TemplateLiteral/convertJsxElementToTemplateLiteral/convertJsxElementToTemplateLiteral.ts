@@ -47,7 +47,7 @@ export class ConvertJSXElementToTemplateLiteral {
   }
 
   handleExpressions(exp: any) {
-    const expression = exp.expression;
+    const expression = exp.expression ?? exp;
     this.expressions.push(expression);
   }
 
@@ -102,6 +102,16 @@ export class ConvertJSXElementToTemplateLiteral {
         }
 
         if (isJSXExpressionContainer(child)) {
+          this.queries.push(
+            templateElement({
+              raw: this.query,
+            })
+          );
+          this.query = "";
+          this.handleExpressions(child);
+        }
+
+        if (isCallExpression(child)) {
           this.queries.push(
             templateElement({
               raw: this.query,
