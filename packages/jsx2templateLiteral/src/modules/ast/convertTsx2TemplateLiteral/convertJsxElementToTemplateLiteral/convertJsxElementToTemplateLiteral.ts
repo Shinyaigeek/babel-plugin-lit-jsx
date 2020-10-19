@@ -72,13 +72,15 @@ export class ConvertJSXElementToTemplateLiteral {
           this.handleExpressions(attr.value);
         } else {
           if (isJSXElement(attr.value)) {
-            //TODO
-            throw new Error("jsx element props is not supported");
+            throw new Error(
+              "jsx element props should be compiled to function in the prior step"
+            );
           }
 
           if (isJSXFragment(attr.value)) {
-            //TODO
-            throw new Error("jsx fragment props is not supported");
+            throw new Error(
+              "jsx fragment props should be compiled to function in the prior step"
+            );
           }
           this.query += ` ${attr.name.name}=${
             attr.value?.value || nullLiteral()
