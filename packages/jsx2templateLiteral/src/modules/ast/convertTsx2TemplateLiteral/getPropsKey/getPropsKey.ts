@@ -1,13 +1,17 @@
 import { NodePath } from "@babel/traverse";
-import { JSXAttribute } from "@babel/types";
+import {
+  isJSXIdentifier,
+  isJSXNamespacedName,
+  JSXAttribute,
+} from "@babel/types";
 
-export const getPropsKey = (attr: NodePath<JSXAttribute>) => {
-  const key = attr.node.name.name;
-  // TODO why key can be JSXIdentifier ?
+export const getPropsKey = (attrNode: NodePath<JSXAttribute>) => {
+  const attr = attrNode.node.name;
 
-  if (typeof key !== "string") {
-    throw new Error("key is JSXIdentifier, invalid type");
+  if (isJSXIdentifier(attr)) {
+    return attr.name;
   }
 
-  return key;
+  // JSXNamespacedName
+  throw new Error("lit-jsx doesn't support namespaced attribute key");
 };
