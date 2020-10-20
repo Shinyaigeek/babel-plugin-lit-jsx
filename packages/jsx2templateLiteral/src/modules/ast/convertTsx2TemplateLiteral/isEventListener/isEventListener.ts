@@ -1,19 +1,22 @@
 import { NodePath } from "@babel/traverse";
-import { JSXAttribute, JSXElement } from "@babel/types";
+import {
+  isJSXElement,
+  isJSXIdentifier,
+  isJSXOpeningElement,
+  JSXAttribute,
+  JSXElement,
+} from "@babel/types";
 import { isUserDefinedComponent } from "../../../util/isUserDefinedComponent/isUserDefinedComponent";
 
 export const isEventListener = (attr: NodePath<JSXAttribute>) => {
   if (
-    attr.parentPath.node.type !== "JSXElement" &&
-    attr.parentPath.node.type !== "JSXOpeningElement" &&
-    typeof attr.node.name.name !== "string"
+    isJSXElement(attr.parentPath.node) ||
+    isJSXOpeningElement(attr.parentPath.node)
   ) {
-    // TODO Why node.type infered as Node ?
-    throw new Error("invalid node type");
+    if (isJSXIdentifier(attr.node.name)) {
+      return attr.node.name.name[0] === "o" && attr.node.name.name[1] === "n";
+    }
+
+    throw new Error("jsx namespaced name is not support");
   }
-  return (
-    !isUserDefinedComponent(attr.parentPath.node as JSXElement) &&
-    (attr.node.name.name as string)[0] === "o" &&
-    (attr.node.name.name as string)[1] === "n"
-  );
 };
