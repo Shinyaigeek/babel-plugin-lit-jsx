@@ -10,6 +10,7 @@ import {
   JSXElement,
   jsxExpressionContainer,
   JSXIdentifier,
+  JSXSpreadAttribute,
   memberExpression,
   objectExpression,
   ObjectProperty,
@@ -24,9 +25,11 @@ import { resolveAttrValue } from "../resolveAttrValue/resolveAttrValue";
 export const convertComponent2Function = (nodePath: NodePath<JSXElement>) => {
   if (isUserDefinedComponent(nodePath.node)) {
     const tagName = getTagNameFromElement(nodePath.node);
-    const spreadAttributes = nodePath.node.openingElement.attributes.find(
-      (attr) => isJSXSpreadAttribute(attr)
-    );
+    const spreadAttributes = nodePath.node.openingElement.attributes
+      .map((attr) => (isJSXSpreadAttribute(attr) ? attr : undefined))
+      .filter(
+        (attr): attr is JSXSpreadAttribute => typeof attr !== "undefined"
+      );
     nodePath.replaceWith(
       callExpression(identifier(tagName), [
         callExpression(
@@ -51,12 +54,16 @@ export const convertComponent2Function = (nodePath: NodePath<JSXElement>) => {
                   (attr): attr is ObjectProperty => typeof attr !== "undefined"
                 )
             ),
-            isJSXSpreadAttribute(spreadAttributes)
-              ? identifier((spreadAttributes.argument as Identifier).name)
-              : objectExpression([]),
+            ...spreadAttributes.map((attr) =>
+              identifier((attr.argument as Identifier).name)
+            ),
           ]
         ),
       ])
     );
   }
 };
+
+const h = [1, 2];
+
+const i = [1, ...h.map((i) => i * 2)];
