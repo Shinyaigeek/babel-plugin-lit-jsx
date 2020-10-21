@@ -1,17 +1,21 @@
 import { NodePath } from "@babel/traverse";
-import { isJSX, isJSXOpeningElement, JSXElement } from "@babel/types";
+import {
+  isJSX,
+  isJSXIdentifier,
+  isJSXNamespacedName,
+  isJSXOpeningElement,
+  JSXElement,
+} from "@babel/types";
+import { accessObjectPropertyRecursively } from "../accessObjectPropertyRecursively/accessObjectPropertyRecursively";
 
 export const getTagNameFromElement = (element: JSXElement) => {
-  //TODO :thinking_face:
-  const tagName = isJSXOpeningElement(element)
-    ? //@ts-ignore
-      element.name.name
-    : //@ts-ignore
-      element.openingElement.name.name;
-
-  if (!tagName) {
-    throw new Error("jsx element is not jsx identifier");
+  if (isJSXNamespacedName(element.openingElement.name)) {
+    throw new Error("jsx namespaced name is not supported");
   }
 
-  return tagName as string;
+  if (isJSXIdentifier(element.openingElement.name)) {
+    return element.openingElement.name.name;
+  } else {
+    return accessObjectPropertyRecursively(element.openingElement.name);
+  }
 };
