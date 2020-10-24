@@ -1,6 +1,6 @@
 import { astParser } from "../astParser/astParser";
 import { codegen } from "../codegen/codegen";
-import { convertTsx2TemplateLiteral } from "../convertTsx2TemplateLiteral/convertTsx2TemplateLiteral";
+import { convertTsx2TemplateLiteral } from "../../../../core/visitor/convertTsx2TemplateLiteral/convertTsx2TemplateLiteral";
 
 export const compileEachFile = (target: string) => {
   const ast = astParser(target);

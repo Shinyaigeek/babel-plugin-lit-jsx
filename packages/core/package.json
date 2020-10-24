@@ -5,7 +5,7 @@
   "author": "shinyaigeek <PhilisPaxil@gmail.com>",
   "homepage": "https://github.com/Shinyaigeek/lit-jsx/tree/master/packages/core#readme",
   "license": "MIT",
-  "main": "visitor/visitor.ts",
+  "main": "visitor/visitor.js",
   "directories": {
     "lib": "lib"
   },
@@ -17,7 +17,7 @@
     "url": "git+https://github.com/Shinyaigeek/lit-jsx.git"
   },
   "scripts": {
-    "test": "echo \"Error: run tests from root\" && exit 1"
+    "build": "tsc visitor/visitor.ts"
   },
   "bugs": {
     "url": "https://github.com/Shinyaigeek/lit-jsx/issues"

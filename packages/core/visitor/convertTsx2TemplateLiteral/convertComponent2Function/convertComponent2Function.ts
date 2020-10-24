@@ -18,8 +18,8 @@ import {
   spreadElement,
   stringLiteral,
 } from "@babel/types";
-import { getTagNameFromElement } from "../../../util/getTagNameFromElement/getTagNameFromElement";
-import { isUserDefinedComponent } from "../../../util/isUserDefinedComponent/isUserDefinedComponent";
+import { getTagNameFromElement } from "../../getTagNameFromElement/getTagNameFromElement";
+import { isUserDefinedComponent } from "../../isUserDefinedComponent/isUserDefinedComponent";
 import { resolveAttrValue } from "../resolveAttrValue/resolveAttrValue";
 
 export const convertComponent2Function = (nodePath: NodePath<JSXElement>) => {

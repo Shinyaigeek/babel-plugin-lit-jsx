@@ -6,7 +6,7 @@ import {
   JSXAttribute,
   JSXElement,
 } from "@babel/types";
-import { isUserDefinedComponent } from "../../../util/isUserDefinedComponent/isUserDefinedComponent";
+import { isUserDefinedComponent } from "../../isUserDefinedComponent/isUserDefinedComponent";
 
 export const isEventListener = (attr: NodePath<JSXAttribute>) => {
   if (

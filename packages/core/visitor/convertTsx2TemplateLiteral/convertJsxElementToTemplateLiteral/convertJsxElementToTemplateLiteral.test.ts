@@ -9,7 +9,7 @@ import {
   variableDeclarator,
 } from "@babel/types";
 import { join } from "path";
-import { codegen } from "../../codegen/codegen";
+import { codegen } from "../../../../jsx2templateLiteral/src/modules/codegen/codegen";
 import { extractJsxElementFromSouceFile } from "../../extractJsxElementFromSouceFile/extractJsxElementFromSourceFile";
 import { ConvertJSXElementToTemplateLiteral } from "./convertJsxElementToTemplateLiteral";
 
