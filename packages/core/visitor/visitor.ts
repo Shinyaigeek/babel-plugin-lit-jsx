@@ -1,5 +1,6 @@
 import { TraverseOptions } from "@babel/traverse";
 import { convertComponent2Function } from "./convertTsx2TemplateLiteral/convertComponent2Function/convertComponent2Function";
+import { convertReturnedJSXElementToString } from "./convertTsx2TemplateLiteral/convertReturnedJSXElementToString/convertReturnedJSXElementToString";
 import { justifyJSXProps } from "./convertTsx2TemplateLiteral/justifyJSXProps/justifyJSXProps";
 
 export const visitor: TraverseOptions = {
@@ -15,4 +16,8 @@ export const visitor: TraverseOptions = {
   //       compileEachFile(importedJsxPath);
   //     }
   //   },
+  ReturnStatement(nodePath) {
+    convertReturnedJSXElementToString(nodePath);
+    nodePath.skip();
+  },
 };
