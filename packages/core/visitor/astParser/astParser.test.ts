@@ -1,5 +1,4 @@
 import { join } from "path";
-import { fileReader } from "../../file/fileReader/fileReader";
 import { astParser } from "./astParser";
 
 // astの中身自体については, @babel/parser の管轄内であり, test を書くコストを考えて今一旦はそれを信じここでは source の入力に対してASTの出力が帰ってくることだけを✅したい

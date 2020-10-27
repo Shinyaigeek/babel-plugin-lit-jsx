@@ -1,6 +1,6 @@
 import { JSXElement } from "@babel/types";
 import { join } from "path";
-import { astParser } from "../../ast/astParser/astParser";
+import { astParser } from "../astParser/astParser";
 import { isUserDefinedComponent } from "./isUserDefinedComponent";
 
 describe("isUserDefinedComponent", () => {

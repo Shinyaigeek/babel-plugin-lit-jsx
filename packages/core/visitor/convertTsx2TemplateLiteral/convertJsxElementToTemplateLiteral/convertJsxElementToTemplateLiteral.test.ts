@@ -9,10 +9,9 @@ import {
   variableDeclarator,
 } from "@babel/types";
 import { join } from "path";
-//TODO
-import { codegen } from "../../../../jsx2templateLiteral/src/modules/codegen/codegen";
 import { extractJsxElementFromSouceFile } from "../../extractJsxElementFromSouceFile/extractJsxElementFromSourceFile";
 import { ConvertJSXElementToTemplateLiteral } from "./convertJsxElementToTemplateLiteral";
+import generate from "@babel/generator";
 
 describe("convertJsxElementToTemplateLiteral", () => {
   test("simple jsx", () => {
@@ -28,7 +27,7 @@ describe("convertJsxElementToTemplateLiteral", () => {
 
     converter.traverse();
 
-    const raw = codegen(
+    const raw = generate(
       file(
         program([
           variableDeclaration("const", [
@@ -39,7 +38,7 @@ describe("convertJsxElementToTemplateLiteral", () => {
           ]),
         ])
       )
-    );
+    ).code;
 
     expect(raw).toBe("const SimpleJsx = () => `<div>asdf</div>`;");
   });
@@ -57,7 +56,7 @@ describe("convertJsxElementToTemplateLiteral", () => {
 
     converter.traverse();
 
-    const raw = codegen(
+    const raw = generate(
       file(
         program([
           variableDeclaration("const", [
@@ -68,7 +67,7 @@ describe("convertJsxElementToTemplateLiteral", () => {
           ]),
         ])
       )
-    );
+    ).code;
 
     expect(raw).toBe(`const Fragment = () => \`
     <div>asdf</div>
