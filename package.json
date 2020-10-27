@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest",
     "build": "lerna run build",
-    "link": "cd packages/core && yarn link && cd ../babel-lit-jsx-plugin && yarn link && cd ../jsx2templateLiteral && yarn link && ../../",
+    "link": "cd packages/core && yarn link && cd ../babel-lit-jsx-plugin && yarn link core && cd ../jsx2templateLiteral && yarn link core && ../../",
     "lint:script": "eslint **/*.tsx **/*.ts",
     "lint": "yarn run lint:script",
     "format": "prettier **/*.tsx **/*.ts --write --config .prettierrc"
