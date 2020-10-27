@@ -9,7 +9,7 @@ import {
   isReturnStatement,
   isVariableDeclaration,
 } from "@babel/types";
-import { astParser } from "../../../jsx2templateLiteral/src/modules/astParser/astParser";
+import { astParser } from "../astParser/astParser";
 
 export const extractJsxElementFromSouceFile = (target: string) => {
   const ast = astParser(target);
