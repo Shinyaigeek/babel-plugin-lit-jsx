@@ -18,7 +18,7 @@
     "url": "git+https://github.com/Shinyaigeek/lit-jsx.git"
   },
   "scripts": {
-    "build": "tsc src/main.ts"
+    "build": "tsc"
   },
   "bugs": {
     "url": "https://github.com/Shinyaigeek/lit-jsx/issues"

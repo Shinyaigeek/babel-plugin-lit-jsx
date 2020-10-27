@@ -1,4 +1,4 @@
-import { astParser } from "../astParser/astParser";
+import { astParser } from "../../../../core/visitor/astParser/astParser";
 import { codegen } from "../codegen/codegen";
 import { convertTsx2TemplateLiteral } from "../../../../core/visitor/convertTsx2TemplateLiteral/convertTsx2TemplateLiteral";
 
