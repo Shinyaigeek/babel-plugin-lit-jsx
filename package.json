@@ -6,6 +6,7 @@
   "scripts": {
     "test": "jest",
     "build": "lerna run build",
+    "link": "lerna link",
     "lint:script": "eslint **/*.tsx **/*.ts",
     "lint": "yarn run lint:script",
     "format": "prettier **/*.tsx **/*.ts --write --config .prettierrc"
