@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "build": "babel examples/SimpleButton/App.tsx",
+    "build": "lerna run build",
     "lint:script": "eslint **/*.tsx **/*.ts",
     "lint": "yarn run lint:script",
     "format": "prettier **/*.tsx **/*.ts --write --config .prettierrc"
