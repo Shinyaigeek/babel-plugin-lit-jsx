@@ -4975,6 +4975,11 @@ lines-and-columns@^1.1.6:
   resolved "https://registry.yarnpkg.com/lines-and-columns/-/lines-and-columns-1.1.6.tgz#1c00c743b433cd0a4e80758f7b64a57440d9ff00"
   integrity sha1-HADHQ7QzzQpOgHWPe2SldEDZ/wA=
 
+lit-jsx-core@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/lit-jsx-core/-/lit-jsx-core-0.0.4.tgz#44266386a3c0453175a9367efb38c5c23efb6be5"
+  integrity sha512-F11Ua6VgqOn56PpHinAezCb3K95T+GGOi2haRd2+yezh/rshOaJBooM1Erdnpx3mD2kTSkHs3fl0vsVBNVLV7g==
+
 load-json-file@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/load-json-file/-/load-json-file-1.1.0.tgz#956905708d58b4bab4c2261b04f59f31c99374c0"

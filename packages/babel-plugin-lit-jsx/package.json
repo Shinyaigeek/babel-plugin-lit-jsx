@@ -1,16 +1,16 @@
 {
-  "name": "core",
-  "version": "0.0.1",
+  "name": "babel-plugin-lit-jsx",
+  "version": "0.0.7",
   "description": "> TODO: description",
   "author": "shinyaigeek <PhilisPaxil@gmail.com>",
-  "homepage": "https://github.com/Shinyaigeek/lit-jsx/tree/master/packages/core#readme",
+  "homepage": "https://github.com/Shinyaigeek/lit-jsx/tree/master/packages/babel-lit-jsx-plugin#readme",
   "license": "MIT",
-  "main": "visitor/visitor.js",
+  "main": "dist/main.js",
   "directories": {
-    "lib": "lib"
+    "lib": "dist"
   },
   "files": [
-    "lib"
+    "dist"
   ],
   "repository": {
     "type": "git",
@@ -21,5 +21,8 @@
   },
   "bugs": {
     "url": "https://github.com/Shinyaigeek/lit-jsx/issues"
+  },
+  "dependencies": {
+    "lit-jsx-core": "^0.0.4"
   }
 }
