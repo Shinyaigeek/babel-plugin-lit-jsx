@@ -8,6 +8,7 @@
     "build": "lerna run build",
     "lint:script": "eslint **/*.tsx **/*.ts",
     "lint": "yarn run lint:script",
+    "link:packages": "cd packages/babel-plugin-lit-jsx && yarn install && cd ../lit-jsx-jsx2templateLiteral && yarn install && cd ../../",
     "format": "prettier **/*.tsx **/*.ts --write --config .prettierrc"
   },
   "repository": {
