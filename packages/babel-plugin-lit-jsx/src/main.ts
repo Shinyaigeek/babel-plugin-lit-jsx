@@ -1,4 +1,4 @@
-import { visitor } from "../../lit-jsx-core/type/visitor";
+import { visitor } from "lit-jsx-core";
 
 export default function () {
   return {
