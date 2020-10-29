@@ -1,16 +1,19 @@
 {
-  "name": "core",
-  "version": "0.0.1",
+  "name": "lit-jsx-core",
+  "version": "0.0.4",
   "description": "> TODO: description",
   "author": "shinyaigeek <PhilisPaxil@gmail.com>",
   "homepage": "https://github.com/Shinyaigeek/lit-jsx/tree/master/packages/core#readme",
   "license": "MIT",
-  "main": "visitor/visitor.js",
+  "main": "dist/visitor.js",
+  "types": "type/visitor.d.ts",
   "directories": {
-    "lib": "lib"
+    "lib": "visitor"
   },
   "files": [
-    "lib"
+    "dist",
+    "type",
+    "visitor"
   ],
   "repository": {
     "type": "git",
