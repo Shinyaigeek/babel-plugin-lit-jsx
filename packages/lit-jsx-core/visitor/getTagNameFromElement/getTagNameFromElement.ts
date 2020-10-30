@@ -16,6 +16,6 @@ export const getTagNameFromElement = (element: JSXElement) => {
   if (isJSXIdentifier(element.openingElement.name)) {
     return element.openingElement.name.name;
   } else {
-    return accessObjectPropertyRecursively(element.openingElement.name);
+    return accessObjectPropertyRecursively(element.openingElement.name, "");
   }
 };

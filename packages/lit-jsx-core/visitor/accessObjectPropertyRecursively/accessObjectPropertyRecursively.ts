@@ -11,5 +11,9 @@ export const accessObjectPropertyRecursively = (
     );
   }
 
-  return root.property.name + "." + prev;
+  if (prev === "") {
+    return root.object.name + "." + root.property.name;
+  }
+
+  return root.object.name + "." + root.property.name + "." + prev;
 };
