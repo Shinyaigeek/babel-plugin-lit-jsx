@@ -9,6 +9,7 @@ export const convertTsx2TemplateLiteral = (ast: File, target: string) => {
   traverse(ast, {
     JSXAttribute(nodePath) {
       justifyJSXProps(nodePath);
+      nodePath.skip();
     },
     JSXElement(nodePath) {
       convertComponent2Function(nodePath);

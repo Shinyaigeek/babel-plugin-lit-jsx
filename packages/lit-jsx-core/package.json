@@ -1,6 +1,6 @@
 {
   "name": "lit-jsx-core",
-  "version": "0.0.1",
+  "version": "0.0.10",
   "description": "> TODO: description",
   "author": "shinyaigeek <PhilisPaxil@gmail.com>",
   "homepage": "https://github.com/Shinyaigeek/lit-jsx/tree/master/packages/core#readme",
@@ -27,5 +27,6 @@
   },
   "dependencies": {
     "@types/node": "^14.14.6"
-  }
+  },
+  "gitHead": "5f138ff3b936d539a545027101279b7e321c1a82"
 }

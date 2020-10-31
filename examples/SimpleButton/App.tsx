@@ -2,7 +2,7 @@ import { Button } from "./Button";
 
 const html = {
   hoge: {
-    fuca: {
+    fuga: {
       Button,
     },
   },
@@ -11,9 +11,14 @@ const html = {
 export const App = () => {
   return (
     <>
-      <div className="app">
+      <div
+        className="app"
+        style={{
+          color: "red",
+        }}
+      >
         {["hoge", "bar", "fuga"].map((el) => (
-          <html.hoge.Button label={el} />
+          <html.hoge.fuga.Button label={el} />
         ))}
       </div>
       <div>asdf</div>
