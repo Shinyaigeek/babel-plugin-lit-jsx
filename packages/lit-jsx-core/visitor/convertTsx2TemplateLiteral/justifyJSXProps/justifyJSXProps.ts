@@ -8,7 +8,9 @@ import {
 } from "@babel/types";
 import { getPropsKey } from "../getPropsKey/getPropsKey";
 import { isEventListener } from "../isEventListener/isEventListener";
+import { isStyle } from "../isStyle/isStyle";
 import { justifyEventListener } from "../justifyEventListener/justifyEventListener";
+import { justifyStyle } from "../justifyStyle/justifyStyle";
 
 type TableKeys = "className";
 
@@ -39,5 +41,9 @@ export const justifyJSXProps = (nodePath: NodePath<JSXAttribute>) => {
 
   if (isEventListener(nodePath)) {
     justifyEventListener(nodePath);
+  }
+
+  if (isStyle(nodePath)) {
+    justifyStyle(nodePath);
   }
 };
