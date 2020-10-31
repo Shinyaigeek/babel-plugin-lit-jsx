@@ -2,7 +2,14 @@
 # yarn lockfile v1
 
 
-lit-jsx-core@^0.0.4:
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/lit-jsx-core/-/lit-jsx-core-0.0.4.tgz#44266386a3c0453175a9367efb38c5c23efb6be5"
-  integrity sha512-F11Ua6VgqOn56PpHinAezCb3K95T+GGOi2haRd2+yezh/rshOaJBooM1Erdnpx3mD2kTSkHs3fl0vsVBNVLV7g==
+"@types/node@^14.14.6":
+  version "14.14.6"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.14.6.tgz#146d3da57b3c636cc0d1769396ce1cfa8991147f"
+  integrity sha512-6QlRuqsQ/Ox/aJEQWBEJG7A9+u7oSYl3mem/K8IzxXG/kAGbV1YPD9Bg9Zw3vyxC/YP+zONKwy8hGkSt1jxFMw==
+
+lit-jsx-core@^0.0.10:
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/lit-jsx-core/-/lit-jsx-core-0.0.10.tgz#6484aa877bdd8f36629d58f7f79d93575a235857"
+  integrity sha512-HDCuB7wxMSe3D03lLQQkprLttYMhIz2nE5s8hMXceUsXDtXQ7+WRwjse9F55lZwMthb1vGfHHldGqKU7yCbySw==
+  dependencies:
+    "@types/node" "^14.14.6"

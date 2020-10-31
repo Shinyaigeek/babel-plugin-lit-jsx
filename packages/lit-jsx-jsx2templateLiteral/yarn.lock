@@ -1508,6 +1508,11 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-14.11.8.tgz#fe2012f2355e4ce08bca44aeb3abbb21cf88d33f"
   integrity sha512-KPcKqKm5UKDkaYPTuXSx8wEP7vE9GnuaXIZKijwRYcePpZFDVuy2a57LarFKiORbHOuTOOwYzxVxcUzsh2P2Pw==
 
+"@types/node@^14.14.6":
+  version "14.14.6"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.14.6.tgz#146d3da57b3c636cc0d1769396ce1cfa8991147f"
+  integrity sha512-6QlRuqsQ/Ox/aJEQWBEJG7A9+u7oSYl3mem/K8IzxXG/kAGbV1YPD9Bg9Zw3vyxC/YP+zONKwy8hGkSt1jxFMw==
+
 "@types/normalize-package-data@^2.4.0":
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/@types/normalize-package-data/-/normalize-package-data-2.4.0.tgz#e486d0d97396d79beedd0a6e33f4534ff6b4973e"
@@ -4975,10 +4980,12 @@ lines-and-columns@^1.1.6:
   resolved "https://registry.yarnpkg.com/lines-and-columns/-/lines-and-columns-1.1.6.tgz#1c00c743b433cd0a4e80758f7b64a57440d9ff00"
   integrity sha1-HADHQ7QzzQpOgHWPe2SldEDZ/wA=
 
-lit-jsx-core@^0.0.4:
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/lit-jsx-core/-/lit-jsx-core-0.0.4.tgz#44266386a3c0453175a9367efb38c5c23efb6be5"
-  integrity sha512-F11Ua6VgqOn56PpHinAezCb3K95T+GGOi2haRd2+yezh/rshOaJBooM1Erdnpx3mD2kTSkHs3fl0vsVBNVLV7g==
+lit-jsx-core@^0.0.10:
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/lit-jsx-core/-/lit-jsx-core-0.0.10.tgz#6484aa877bdd8f36629d58f7f79d93575a235857"
+  integrity sha512-HDCuB7wxMSe3D03lLQQkprLttYMhIz2nE5s8hMXceUsXDtXQ7+WRwjse9F55lZwMthb1vGfHHldGqKU7yCbySw==
+  dependencies:
+    "@types/node" "^14.14.6"
 
 load-json-file@^1.0.0:
   version "1.1.0"
