@@ -23,6 +23,7 @@
     "url": "https://github.com/Shinyaigeek/lit-jsx/issues"
   },
   "dependencies": {
-    "lit-jsx-core": "^0.0.2"
-  }
+    "lit-jsx-core": "^0.0.10"
+  },
+  "gitHead": "5f138ff3b936d539a545027101279b7e321c1a82"
 }
