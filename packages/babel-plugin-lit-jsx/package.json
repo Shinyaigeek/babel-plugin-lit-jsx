@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-lit-jsx",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "> TODO: description",
   "author": "shinyaigeek <PhilisPaxil@gmail.com>",
   "homepage": "https://github.com/Shinyaigeek/lit-jsx/tree/master/packages/babel-lit-jsx-plugin#readme",
@@ -23,6 +23,6 @@
     "url": "https://github.com/Shinyaigeek/lit-jsx/issues"
   },
   "dependencies": {
-    "lit-jsx-core": "^0.0.1"
+    "lit-jsx-core": "^0.0.2"
   }
 }
