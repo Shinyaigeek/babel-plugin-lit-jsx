@@ -19,7 +19,6 @@ export const visitor: TraverseOptions = {
   //   },
   ReturnStatement(nodePath) {
     convertReturnedJSXElementToString(nodePath);
-    nodePath.skip();
   },
 };
 

@@ -20,12 +20,17 @@ export const convertTsx2TemplateLiteral = (ast: File, target: string) => {
     //     compileEachFile(importedJsxPath);
     //   }
     // },
-  });
 
-  traverse(ast, {
     ReturnStatement(nodePath) {
       convertReturnedJSXElementToString(nodePath);
-      nodePath.skip();
+      // nodePath.skip();
     },
   });
+
+  // traverse(ast, {
+  //   ReturnStatement(nodePath) {
+  //     convertReturnedJSXElementToString(nodePath);
+  //     nodePath.skip();
+  //   },
+  // });
 };
