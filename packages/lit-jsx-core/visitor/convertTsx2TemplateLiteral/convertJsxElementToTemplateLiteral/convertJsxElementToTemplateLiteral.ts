@@ -1,5 +1,7 @@
 import {
+  callExpression,
   Expression,
+  identifier,
   isCallExpression,
   isExpression,
   isJSXElement,
@@ -7,8 +9,10 @@ import {
   isJSXFragment,
   isJSXIdentifier,
   isJSXMemberExpression,
+  isJSXNamespacedName,
   isJSXSpreadAttribute,
   isJSXText,
+  isObjectExpression,
   isSpreadProperty,
   JSXElement,
   JSXFragment,
@@ -19,9 +23,17 @@ import {
   TemplateLiteral,
   tsConstructorType,
 } from "@babel/types";
+import { convertEventListener } from "../../../dist/convertTsx2TemplateLiteral/convertEventListener/convertEventListener";
 import { isUserDefinedComponent } from "../../../dist/isUserDefinedComponent/isUserDefinedComponent";
 import { resolveAttrValue } from "../resolveAttrValue/resolveAttrValue";
 
+type TableKeys = "className";
+
+const table: {
+  [P in TableKeys]: string;
+} = {
+  "className": "class",
+};
 export class ConvertJSXElementToTemplateLiteral {
   element: JSXElement | JSXFragment;
   queries: TemplateElement[];
@@ -71,15 +83,42 @@ export class ConvertJSXElementToTemplateLiteral {
           if (isJSXSpreadAttribute(attr)) {
             throw new Error("spread property is not supported");
           }
+          if (isJSXNamespacedName(attr.name)) {
+            throw new Error("jsx namespaced attr is not supported");
+          }
+          const key = (() => {
+            if (attr.name.name in table) {
+              const proper = table[attr.name.name as TableKeys];
+              return proper;
+            }
+
+            if (attr.name.name[0] === "o" && attr.name.name[1] === "n") {
+              return convertEventListener(attr.name.name);
+            }
+
+            return attr.name.name;
+          })();
           if (isJSXExpressionContainer(attr.value)) {
-            this.query += ` ${attr.name.name}=`;
+            this.query += ` ${key}=`;
             this.queries.push(
               templateElement({
                 raw: this.query,
               })
             );
             this.query = "";
-            this.handleExpressions(attr.value);
+            if (key === "style") {
+              if (isObjectExpression(attr.value.expression)) {
+                this.handleExpressions(
+                  callExpression(identifier("styleMap"), [
+                    attr.value.expression,
+                  ])
+                );
+              } else {
+                throw new Error("jsx attr styles property should be object");
+              }
+            } else {
+              this.handleExpressions(attr.value);
+            }
           } else {
             if (isJSXElement(attr.value)) {
               throw new Error(
@@ -92,9 +131,7 @@ export class ConvertJSXElementToTemplateLiteral {
                 "jsx fragment props should be compiled to function in the prior step"
               );
             }
-            this.query += ` ${attr.name.name}=${
-              attr.value?.value || nullLiteral()
-            }`;
+            this.query += ` ${key}="${attr.value?.value || nullLiteral()}"`;
           }
         });
 

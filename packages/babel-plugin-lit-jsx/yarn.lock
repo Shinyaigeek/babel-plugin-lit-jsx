@@ -7,9 +7,9 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-14.14.6.tgz#146d3da57b3c636cc0d1769396ce1cfa8991147f"
   integrity sha512-6QlRuqsQ/Ox/aJEQWBEJG7A9+u7oSYl3mem/K8IzxXG/kAGbV1YPD9Bg9Zw3vyxC/YP+zONKwy8hGkSt1jxFMw==
 
-lit-jsx-core@^0.0.10:
-  version "0.0.10"
-  resolved "https://registry.yarnpkg.com/lit-jsx-core/-/lit-jsx-core-0.0.10.tgz#6484aa877bdd8f36629d58f7f79d93575a235857"
-  integrity sha512-HDCuB7wxMSe3D03lLQQkprLttYMhIz2nE5s8hMXceUsXDtXQ7+WRwjse9F55lZwMthb1vGfHHldGqKU7yCbySw==
+lit-jsx-core@^0.0.14:
+  version "0.0.14"
+  resolved "https://registry.yarnpkg.com/lit-jsx-core/-/lit-jsx-core-0.0.14.tgz#5b1d0cf4e7185ab41510948c45f283e8fcdaddd0"
+  integrity sha512-KKpz/F5ZHKJkEDulRuV/NToftxmFWV4/D4qzygVa7S7/dZKr5+Jl9qLquuqXsiXo3HnZzwYi0cw4GvAtdvtNNA==
   dependencies:
     "@types/node" "^14.14.6"
