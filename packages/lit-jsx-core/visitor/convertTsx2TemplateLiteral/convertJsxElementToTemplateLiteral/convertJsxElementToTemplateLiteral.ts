@@ -55,6 +55,7 @@ export class ConvertJSXElementToTemplateLiteral {
     this.queries.push(
       templateElement({
         raw: this.query,
+        cooked: this.query,
       })
     );
   }
@@ -70,6 +71,7 @@ export class ConvertJSXElementToTemplateLiteral {
         this.queries.push(
           templateElement({
             raw: this.query,
+            cooked: this.query,
           })
         );
         this.query = "";
@@ -103,6 +105,7 @@ export class ConvertJSXElementToTemplateLiteral {
             this.queries.push(
               templateElement({
                 raw: this.query,
+                cooked: this.query,
               })
             );
             this.query = "";
@@ -154,6 +157,7 @@ export class ConvertJSXElementToTemplateLiteral {
             this.queries.push(
               templateElement({
                 raw: this.query,
+                cooked: this.query,
               })
             );
             this.query = "";
@@ -164,6 +168,7 @@ export class ConvertJSXElementToTemplateLiteral {
             this.queries.push(
               templateElement({
                 raw: this.query,
+                cooked: this.query,
               })
             );
             this.query = "";
@@ -200,6 +205,7 @@ export class ConvertJSXElementToTemplateLiteral {
           this.queries.push(
             templateElement({
               raw: this.query,
+              cooked: this.query,
             })
           );
           this.query = "";
