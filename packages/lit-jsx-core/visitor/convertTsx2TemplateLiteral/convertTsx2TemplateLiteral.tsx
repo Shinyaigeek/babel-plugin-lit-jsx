@@ -8,16 +8,11 @@ import { convertReturnedJSXElementToString } from "./convertReturnedJSXElementTo
 import { isCreateElement } from "./isCreateElement/isCreateElement";
 import { isForwardRef } from "./isForwardRef/isForwardRef";
 import { justifyJSXProps } from "./justifyJSXProps/justifyJSXProps";
+import { convertJSX2TemplateLiteral } from "../convertJSX2TemplateLiteral/convertJSX2TemplateLiteral";
+import { tagHtmlPrefix } from "./tagHtmlPrefix/tagHtmlPrefix";
 
 export const convertTsx2TemplateLiteral = (ast: File, target: string) => {
   traverse(ast, {
-    JSXAttribute(nodePath) {
-      justifyJSXProps(nodePath);
-      nodePath.skip();
-    },
-    JSXElement(nodePath) {
-      convertComponent2Function(nodePath);
-    },
     ImportDeclaration(nodePath) {
       const importedJsxPath = resolvePath(target, nodePath.node.source.value);
       if (importedJsxPath) {
@@ -25,9 +20,12 @@ export const convertTsx2TemplateLiteral = (ast: File, target: string) => {
       }
     },
 
-    ReturnStatement(nodePath) {
-      convertReturnedJSXElementToString(nodePath);
-      // nodePath.skip();
+    JSXElement(nodePath) {
+      const jsx = nodePath.node;
+      const templateLiteral = convertJSX2TemplateLiteral(jsx);
+      const taggedTemplateLiteral = tagHtmlPrefix(templateLiteral);
+      nodePath.replaceWith(taggedTemplateLiteral);
+      nodePath.skip();
     },
 
     CallExpression(nodePath) {
@@ -55,11 +53,4 @@ export const convertTsx2TemplateLiteral = (ast: File, target: string) => {
       }
     },
   });
-
-  // traverse(ast, {
-  //   ReturnStatement(nodePath) {
-  //     convertReturnedJSXElementToString(nodePath);
-  //     nodePath.skip();
-  //   },
-  // });
 };
