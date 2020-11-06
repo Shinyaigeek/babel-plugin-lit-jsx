@@ -6,10 +6,13 @@ import {
   isJSXAttribute,
   isJSXIdentifier,
   isJSXSpreadAttribute,
+  jsxClosingFragment,
   jsxElement,
   JSXElement,
   jsxExpressionContainer,
+  jsxFragment,
   JSXIdentifier,
+  jsxOpeningFragment,
   JSXSpreadAttribute,
   memberExpression,
   objectExpression,
@@ -22,45 +25,49 @@ import { getTagNameFromElement } from "../../getTagNameFromElement/getTagNameFro
 import { isUserDefinedComponent } from "../../isUserDefinedComponent/isUserDefinedComponent";
 import { resolveAttrValue } from "../resolveAttrValue/resolveAttrValue";
 
-export const convertComponent2Function = (nodePath: NodePath<JSXElement>) => {
-  if (isUserDefinedComponent(nodePath.node)) {
-    const tagName = getTagNameFromElement(nodePath.node);
-    const spreadAttributes = nodePath.node.openingElement.attributes
+export const convertComponent2Function = (node: JSXElement) => {
+  if (isUserDefinedComponent(node)) {
+    const tagName = getTagNameFromElement(node);
+    const spreadAttributes = node.openingElement.attributes
       .map((attr) => (isJSXSpreadAttribute(attr) ? attr : undefined))
       .filter(
         (attr): attr is JSXSpreadAttribute => typeof attr !== "undefined"
       );
-    nodePath.replaceWith(
-      callExpression(identifier(tagName), [
-        callExpression(
-          memberExpression(identifier("Object"), identifier("assign")),
-          [
-            objectExpression(
-              nodePath.node.openingElement.attributes
-                .map((attr) => {
-                  //TODO
-                  if (isJSXAttribute(attr)) {
-                    if (isJSXIdentifier(attr.name)) {
-                      return objectProperty(
-                        identifier(attr.name.name),
-                        resolveAttrValue(attr.value)
-                      );
-                    } else {
-                      throw new Error("jsx named space is not supported");
-                    }
-                  }
-                })
-                .filter(
-                  (attr): attr is ObjectProperty => typeof attr !== "undefined"
-                )
-            ),
-            ...spreadAttributes.map((attr) =>
-              identifier((attr.argument as Identifier).name)
-            ),
-          ]
-        ),
-      ])
+    const children = jsxFragment(
+      jsxOpeningFragment(),
+      jsxClosingFragment(),
+      node.children
     );
+    return callExpression(identifier(tagName), [
+      callExpression(
+        memberExpression(identifier("Object"), identifier("assign")),
+        [
+          objectExpression(
+            node.openingElement.attributes
+              .map((attr) => {
+                //TODO
+                if (isJSXAttribute(attr)) {
+                  if (isJSXIdentifier(attr.name)) {
+                    return objectProperty(
+                      identifier(attr.name.name),
+                      resolveAttrValue(attr.value)
+                    );
+                  } else {
+                    throw new Error("jsx named space is not supported");
+                  }
+                }
+              })
+              .filter(
+                (attr): attr is ObjectProperty => typeof attr !== "undefined"
+              )
+              .concat(objectProperty(identifier("children"), children))
+          ),
+          ...spreadAttributes.map((attr) =>
+            identifier((attr.argument as Identifier).name)
+          ),
+        ]
+      ),
+    ]);
   }
 };
 
