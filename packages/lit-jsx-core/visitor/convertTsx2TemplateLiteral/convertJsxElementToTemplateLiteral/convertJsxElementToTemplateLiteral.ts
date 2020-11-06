@@ -1,10 +1,12 @@
 import {
+  CallExpression,
   callExpression,
   Expression,
   identifier,
   isCallExpression,
   isExpression,
   isJSXElement,
+  isJSXEmptyExpression,
   isJSXExpressionContainer,
   isJSXFragment,
   isJSXIdentifier,
@@ -15,6 +17,7 @@ import {
   isObjectExpression,
   isSpreadProperty,
   JSXElement,
+  JSXExpressionContainer,
   JSXFragment,
   nullLiteral,
   TemplateElement,
@@ -25,6 +28,7 @@ import {
 } from "@babel/types";
 import { convertEventListener } from "../../../dist/convertTsx2TemplateLiteral/convertEventListener/convertEventListener";
 import { isUserDefinedComponent } from "../../../dist/isUserDefinedComponent/isUserDefinedComponent";
+import { convertComponent2Function } from "../convertComponent2Function/convertComponent2Function";
 import { resolveAttrValue } from "../resolveAttrValue/resolveAttrValue";
 
 type TableKeys = "className";
@@ -60,8 +64,11 @@ export class ConvertJSXElementToTemplateLiteral {
     );
   }
 
-  handleExpressions(exp: any) {
-    const expression = exp.expression ?? exp;
+  handleExpressions(exp: JSXExpressionContainer | CallExpression) {
+    const expression = isJSXExpressionContainer(exp) ? exp.expression : exp;
+    if (isJSXEmptyExpression(expression)) {
+      throw new Error("jsx empty expression is invalid");
+    }
     this.expressions.push(expression);
   }
 
@@ -75,7 +82,10 @@ export class ConvertJSXElementToTemplateLiteral {
           })
         );
         this.query = "";
-        this.handleExpressions(jsx);
+        const litHtmlComponent = convertComponent2Function(jsx);
+        if (litHtmlComponent) {
+          this.handleExpressions(litHtmlComponent);
+        }
       } else {
         if (!isJSXIdentifier(jsx.openingElement.name)) {
           throw new Error("jsx should be identifier");
