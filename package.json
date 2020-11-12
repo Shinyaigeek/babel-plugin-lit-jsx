@@ -2,13 +2,13 @@
   "name": "lit-jsx",
   "version": "0.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "lib/main.js",
+  "types": "src/main.ts",
   "scripts": {
     "test": "jest",
-    "build": "lerna run build",
+    "build": "tsc",
     "lint:script": "eslint **/*.tsx **/*.ts",
     "lint": "yarn run lint:script",
-    "link:packages": "cd packages/babel-plugin-lit-jsx && yarn install && cd ../lit-jsx-jsx2templateLiteral && yarn install && cd ../../",
     "format": "prettier **/*.tsx **/*.ts --write --config .prettierrc"
   },
   "repository": {
@@ -35,7 +35,6 @@
     "eslint-plugin-react": "^7.21.3",
     "husky": "^4.3.0",
     "jest": "^26.4.2",
-    "lerna": "^3.22.1",
     "prettier": "^2.1.2",
     "ts-jest": "^26.4.1",
     "ts-node": "^9.0.0",
@@ -50,7 +49,8 @@
     "@types/json5": "^0.0.30",
     "@types/node": "^14.11.2",
     "commander": "^6.1.0",
-    "json5": "^2.1.3"
+    "json5": "^2.1.3",
+    "lit-html": "^1.3.0"
   },
   "jest": {
     "moduleFileExtensions": [
