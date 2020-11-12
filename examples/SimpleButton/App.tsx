@@ -1,4 +1,5 @@
 import { Button } from "./Button";
+import { Layout } from "./Layout";
 
 const html = {
   hoge: {
@@ -10,7 +11,7 @@ const html = {
 
 export const App = () => {
   return (
-    <>
+    <Layout>
       <div
         className="app"
         style={{
@@ -21,7 +22,8 @@ export const App = () => {
           <html.hoge.fuga.Button label={el} />
         ))}
       </div>
-      <div>asdf</div>
-    </>
+      <html.hoge.fuga.Button label="asdf" />
+      <div className="ooo">asdf</div>
+    </Layout>
   );
 };
