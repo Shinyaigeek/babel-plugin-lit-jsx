@@ -7,7 +7,7 @@ describe("astParser", () => {
   test("astParser ts", () => {
     const ast = (() => {
       try {
-        astParser(join(__dirname, "./source.ts"));
+        astParser(join(__dirname, "./source.source.ts"));
         return "ok";
       } catch {
         return "err";
@@ -20,7 +20,7 @@ describe("astParser", () => {
   test("astParser tsx", () => {
     const ast = (() => {
       try {
-        astParser(join(__dirname, "./source.ts"));
+        astParser(join(__dirname, "./source.source.ts"));
         return "ok";
       } catch {
         return "err";
