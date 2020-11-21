@@ -9,6 +9,7 @@ import { insertHTMLImport } from "./convertTsx2TemplateLiteral/insertHtmlImport/
 import { isCreateElement } from "./convertTsx2TemplateLiteral/isCreateElement/isCreateElement";
 import { isForwardRef } from "./convertTsx2TemplateLiteral/isForwardRef/isForwardRef";
 import { justifyJSXProps } from "./convertTsx2TemplateLiteral/justifyJSXProps/justifyJSXProps";
+import { removeReactImport } from "./convertTsx2TemplateLiteral/removeReactImport/removeReactImport";
 import { tagHtmlPrefix } from "./convertTsx2TemplateLiteral/tagHtmlPrefix/tagHtmlPrefix";
 import { isUserDefinedComponent } from "./isUserDefinedComponent/isUserDefinedComponent";
 
@@ -20,6 +21,7 @@ export const visitor: TraverseOptions = {
       const taggedTemplateLiteral = tagHtmlPrefix(templateLiteral);
       const rootProgram = accessRootProgramRecursively(nodePath);
       insertHTMLImport(rootProgram);
+      removeReactImport(rootProgram)
       nodePath.replaceWith(taggedTemplateLiteral);
     } else {
       const jsx = nodePath.node;

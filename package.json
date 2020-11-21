@@ -1,6 +1,6 @@
 {
-  "name": "lit-jsx",
-  "version": "0.0.1",
+  "name": "babel-plugin-lit-jsx",
+  "version": "0.1.0",
   "description": "",
   "main": "lib/main.js",
   "types": "src/main.ts",
