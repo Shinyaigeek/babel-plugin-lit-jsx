@@ -4,7 +4,9 @@ import {
   isIdentifier,
   isJSXElement,
   isJSXExpressionContainer,
+  isMemberExpression,
 } from "@babel/types";
+import { accessObjectPropertyRecursively } from "../../accessObjectPropertyRecursively/accessObjectPropertyRecursively";
 import { convertComponent2Function } from "../convertComponent2Function/convertComponent2Function";
 
 //TODO 型付け
@@ -19,6 +21,10 @@ export const resolveAttrValue = (attrValue: any) => {
     }
 
     if (isJSXElement(attrValue.expression)) {
+      return attrValue.expression;
+    }
+
+    if (isMemberExpression(attrValue.expression)) {
       return attrValue.expression;
     }
   }
