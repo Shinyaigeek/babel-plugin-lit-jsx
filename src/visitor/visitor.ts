@@ -4,7 +4,6 @@ import { accessRootProgramRecursively } from "./accessRootProgramRecursively/acc
 import { astParser } from "./astParser/astParser";
 import { convertJSX2TemplateLiteral } from "./convertJSX2TemplateLiteral/convertJSX2TemplateLiteral";
 import { convertComponent2Function } from "./convertTsx2TemplateLiteral/convertComponent2Function/convertComponent2Function";
-import { convertReturnedJSXElementToString } from "./convertTsx2TemplateLiteral/convertReturnedJSXElementToString/convertReturnedJSXElementToString";
 import { insertHTMLImport } from "./convertTsx2TemplateLiteral/insertHtmlImport/insertHTMLImport";
 import { isCreateElement } from "./convertTsx2TemplateLiteral/isCreateElement/isCreateElement";
 import { isForwardRef } from "./convertTsx2TemplateLiteral/isForwardRef/isForwardRef";
