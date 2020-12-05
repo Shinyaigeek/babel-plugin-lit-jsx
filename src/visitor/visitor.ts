@@ -4,7 +4,6 @@ import { accessRootProgramRecursively } from "./accessRootProgramRecursively/acc
 import { astParser } from "./astParser/astParser";
 import { convertJSX2TemplateLiteral } from "./convertJSX2TemplateLiteral/convertJSX2TemplateLiteral";
 import { convertComponent2Function } from "./convertTsx2TemplateLiteral/convertComponent2Function/convertComponent2Function";
-import { convertReturnedJSXElementToString } from "./convertTsx2TemplateLiteral/convertReturnedJSXElementToString/convertReturnedJSXElementToString";
 import { insertHTMLImport } from "./convertTsx2TemplateLiteral/insertHtmlImport/insertHTMLImport";
 import { isCreateElement } from "./convertTsx2TemplateLiteral/isCreateElement/isCreateElement";
 import { isForwardRef } from "./convertTsx2TemplateLiteral/isForwardRef/isForwardRef";
@@ -17,9 +16,9 @@ export const visitor: TraverseOptions = {
   JSXElement(nodePath) {
     if (!isJSXElement(nodePath.parent) && !isJSXFragment(nodePath.parent)) {
       const jsx = nodePath.node;
-      const templateLiteral = convertJSX2TemplateLiteral(jsx);
-      const taggedTemplateLiteral = tagHtmlPrefix(templateLiteral);
       const rootProgram = accessRootProgramRecursively(nodePath);
+      const templateLiteral = convertJSX2TemplateLiteral(jsx, rootProgram);
+      const taggedTemplateLiteral = tagHtmlPrefix(templateLiteral);
       insertHTMLImport(rootProgram);
       removeReactImport(rootProgram);
       nodePath.replaceWith(taggedTemplateLiteral);
@@ -37,9 +36,9 @@ export const visitor: TraverseOptions = {
   JSXFragment(nodePath) {
     if (!isJSXElement(nodePath.parent) && !isJSXFragment(nodePath.parent)) {
       const jsx = nodePath.node;
-      const templateLiteral = convertJSX2TemplateLiteral(jsx);
-      const taggedTemplateLiteral = tagHtmlPrefix(templateLiteral);
       const rootProgram = accessRootProgramRecursively(nodePath);
+      const templateLiteral = convertJSX2TemplateLiteral(jsx, rootProgram);
+      const taggedTemplateLiteral = tagHtmlPrefix(templateLiteral);
       insertHTMLImport(rootProgram);
       nodePath.replaceWith(taggedTemplateLiteral);
     }
