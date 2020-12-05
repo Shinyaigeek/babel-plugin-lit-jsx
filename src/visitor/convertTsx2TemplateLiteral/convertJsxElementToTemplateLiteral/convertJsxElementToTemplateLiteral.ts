@@ -2,9 +2,11 @@ import {
   CallExpression,
   callExpression,
   Expression,
+  Identifier,
   identifier,
   isCallExpression,
   isExpression,
+  isIdentifier,
   isJSXElement,
   isJSXEmptyExpression,
   isJSXExpressionContainer,
@@ -14,18 +16,24 @@ import {
   isJSXNamespacedName,
   isJSXSpreadAttribute,
   isJSXText,
+  isLiteral,
   isObjectExpression,
+  isObjectProperty,
   isSpreadProperty,
+  isStringLiteral,
   JSXElement,
   JSXExpressionContainer,
   JSXFragment,
+  Literal,
   nullLiteral,
+  StringLiteral,
   TemplateElement,
   templateElement,
   templateLiteral,
   TemplateLiteral,
   tsConstructorType,
 } from "@babel/types";
+import { assertObjectProperty } from "../../asertObjectProperty/asertObjectProperty";
 import { convertEventListener } from "../../convertTsx2TemplateLiteral/convertEventListener/convertEventListener";
 import { isUserDefinedComponent } from "../../isUserDefinedComponent/isUserDefinedComponent";
 import { convertComponent2Function } from "../convertComponent2Function/convertComponent2Function";
@@ -43,6 +51,7 @@ export class ConvertJSXElementToTemplateLiteral {
   queries: TemplateElement[];
   expressions: Expression[];
   query: string;
+  unsafeMarkup?: StringLiteral | Identifier;
   constructor(props: JSXElement | JSXFragment) {
     this.element = props;
     this.queries = [];
@@ -111,26 +120,64 @@ export class ConvertJSXElementToTemplateLiteral {
             return attr.name.name;
           })();
           if (isJSXExpressionContainer(attr.value)) {
-            this.query += ` ${key}=`;
-            this.queries.push(
-              templateElement({
-                raw: this.query,
-                cooked: this.query,
-              })
-            );
-            this.query = "";
-            if (key === "style") {
-              if (isObjectExpression(attr.value.expression)) {
-                this.handleExpressions(
-                  callExpression(identifier("styleMap"), [
-                    attr.value.expression,
-                  ])
-                );
+            if (key === "dangerouslySetInnerHTML") {
+              const obj = attr.value.expression;
+              if (isObjectExpression(obj)) {
+                const html = obj.properties.find((props) => {
+                  if (isObjectProperty(props) && assertObjectProperty(props)) {
+                    if (isStringLiteral(props.key)) {
+                      return props.key.value === "__html";
+                    }
+
+                    if (isIdentifier(props.key)) {
+                      return props.key.name === "__html";
+                    }
+                  }
+                });
+
+                if (!html) {
+                  throw new Error(
+                    "dangerouslySetInnerHTML should have __html property"
+                  );
+                }
+
+                if (isObjectProperty(html)) {
+                  const markup = html.value;
+                  if (isStringLiteral(markup) || isIdentifier(markup)) {
+                    this.unsafeMarkup = markup;
+                  } else {
+                    throw new Error(
+                      "dangerouslySetInnerHTML.__html should be Identifier or StringLiteral"
+                    );
+                  }
+                }
               } else {
-                throw new Error("jsx attr styles property should be object");
+                throw new Error(
+                  "dangerouslySetInnerHTML's value should be object expression"
+                );
               }
             } else {
-              this.handleExpressions(attr.value);
+              this.query += ` ${key}=`;
+              this.queries.push(
+                templateElement({
+                  raw: this.query,
+                  cooked: this.query,
+                })
+              );
+              this.query = "";
+              if (key === "style") {
+                if (isObjectExpression(attr.value.expression)) {
+                  this.handleExpressions(
+                    callExpression(identifier("styleMap"), [
+                      attr.value.expression,
+                    ])
+                  );
+                } else {
+                  throw new Error("jsx attr styles property should be object");
+                }
+              } else {
+                this.handleExpressions(attr.value);
+              }
             }
           } else {
             if (isJSXElement(attr.value)) {
@@ -154,37 +201,51 @@ export class ConvertJSXElementToTemplateLiteral {
           this.query += ">";
         }
 
-        jsx.children.forEach((child) => {
-          if (isJSXText(child)) {
-            this.query += child.value;
-          }
+        if (this.unsafeMarkup) {
+          this.queries.push(
+            templateElement({
+              raw: this.query,
+              cooked: this.query,
+            })
+          );
+          this.query = "";
+          this.handleExpressions(
+            callExpression(identifier("unsafeHTML"), [this.unsafeMarkup])
+          );
+          this.unsafeMarkup = undefined;
+        } else {
+          jsx.children.forEach((child) => {
+            if (isJSXText(child)) {
+              this.query += child.value;
+            }
 
-          if (isJSXElement(child)) {
-            this.handleQueries(child);
-          }
+            if (isJSXElement(child)) {
+              this.handleQueries(child);
+            }
 
-          if (isJSXExpressionContainer(child)) {
-            this.queries.push(
-              templateElement({
-                raw: this.query,
-                cooked: this.query,
-              })
-            );
-            this.query = "";
-            this.handleExpressions(child);
-          }
+            if (isJSXExpressionContainer(child)) {
+              this.queries.push(
+                templateElement({
+                  raw: this.query,
+                  cooked: this.query,
+                })
+              );
+              this.query = "";
+              this.handleExpressions(child);
+            }
 
-          if (isCallExpression(child)) {
-            this.queries.push(
-              templateElement({
-                raw: this.query,
-                cooked: this.query,
-              })
-            );
-            this.query = "";
-            this.handleExpressions(child);
-          }
-        });
+            if (isCallExpression(child)) {
+              this.queries.push(
+                templateElement({
+                  raw: this.query,
+                  cooked: this.query,
+                })
+              );
+              this.query = "";
+              this.handleExpressions(child);
+            }
+          });
+        }
 
         if (!jsx.openingElement.selfClosing) {
           if (!isJSXIdentifier(jsx.openingElement.name)) {
