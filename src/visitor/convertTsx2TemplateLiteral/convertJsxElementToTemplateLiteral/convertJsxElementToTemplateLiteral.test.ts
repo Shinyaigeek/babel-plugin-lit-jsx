@@ -23,7 +23,8 @@ describe("convertJsxElementToTemplateLiteral", () => {
       throw new Error("simple jsx is not jsx element");
     }
 
-    const converter = new ConvertJSXElementToTemplateLiteral(jsx!);
+    // TODO fix type
+    const converter = new ConvertJSXElementToTemplateLiteral(jsx!, "" as any);
 
     converter.traverse();
 
@@ -52,7 +53,8 @@ describe("convertJsxElementToTemplateLiteral", () => {
       throw new Error("fragment is not jsx fragment element");
     }
 
-    const converter = new ConvertJSXElementToTemplateLiteral(jsx!);
+    // TODO fix type
+    const converter = new ConvertJSXElementToTemplateLiteral(jsx!, "" as any);
 
     converter.traverse();
 

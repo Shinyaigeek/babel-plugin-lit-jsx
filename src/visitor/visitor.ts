@@ -17,9 +17,9 @@ export const visitor: TraverseOptions = {
   JSXElement(nodePath) {
     if (!isJSXElement(nodePath.parent) && !isJSXFragment(nodePath.parent)) {
       const jsx = nodePath.node;
-      const templateLiteral = convertJSX2TemplateLiteral(jsx);
-      const taggedTemplateLiteral = tagHtmlPrefix(templateLiteral);
       const rootProgram = accessRootProgramRecursively(nodePath);
+      const templateLiteral = convertJSX2TemplateLiteral(jsx, rootProgram);
+      const taggedTemplateLiteral = tagHtmlPrefix(templateLiteral);
       insertHTMLImport(rootProgram);
       removeReactImport(rootProgram);
       nodePath.replaceWith(taggedTemplateLiteral);
@@ -37,9 +37,9 @@ export const visitor: TraverseOptions = {
   JSXFragment(nodePath) {
     if (!isJSXElement(nodePath.parent) && !isJSXFragment(nodePath.parent)) {
       const jsx = nodePath.node;
-      const templateLiteral = convertJSX2TemplateLiteral(jsx);
-      const taggedTemplateLiteral = tagHtmlPrefix(templateLiteral);
       const rootProgram = accessRootProgramRecursively(nodePath);
+      const templateLiteral = convertJSX2TemplateLiteral(jsx, rootProgram);
+      const taggedTemplateLiteral = tagHtmlPrefix(templateLiteral);
       insertHTMLImport(rootProgram);
       nodePath.replaceWith(taggedTemplateLiteral);
     }

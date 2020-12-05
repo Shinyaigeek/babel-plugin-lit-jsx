@@ -1,3 +1,4 @@
+import { NodePath } from "@babel/core";
 import {
   CallExpression,
   callExpression,
@@ -26,6 +27,7 @@ import {
   JSXFragment,
   Literal,
   nullLiteral,
+  Program,
   StringLiteral,
   TemplateElement,
   templateElement,
@@ -33,10 +35,12 @@ import {
   TemplateLiteral,
   tsConstructorType,
 } from "@babel/types";
+import { accessRootProgramRecursively } from "../../accessRootProgramRecursively/accessRootProgramRecursively";
 import { assertObjectProperty } from "../../asertObjectProperty/asertObjectProperty";
 import { convertEventListener } from "../../convertTsx2TemplateLiteral/convertEventListener/convertEventListener";
 import { isUserDefinedComponent } from "../../isUserDefinedComponent/isUserDefinedComponent";
 import { convertComponent2Function } from "../convertComponent2Function/convertComponent2Function";
+import { insertUnsafeHTMLDirective } from "../insertUnsafeHTMLDirective/insertUnsafeHTMLDirective";
 import { resolveAttrValue } from "../resolveAttrValue/resolveAttrValue";
 
 type TableKeys = "className";
@@ -52,11 +56,13 @@ export class ConvertJSXElementToTemplateLiteral {
   expressions: Expression[];
   query: string;
   unsafeMarkup?: StringLiteral | Identifier;
-  constructor(props: JSXElement | JSXFragment) {
+  rootProgram: NodePath<Program>;
+  constructor(props: JSXElement | JSXFragment, rootProgram: NodePath<Program>) {
     this.element = props;
     this.queries = [];
     this.expressions = [];
     this.query = "";
+    this.rootProgram = rootProgram;
   }
 
   render() {
@@ -212,6 +218,7 @@ export class ConvertJSXElementToTemplateLiteral {
           this.handleExpressions(
             callExpression(identifier("unsafeHTML"), [this.unsafeMarkup])
           );
+          insertUnsafeHTMLDirective(this.rootProgram);
           this.unsafeMarkup = undefined;
         } else {
           jsx.children.forEach((child) => {
