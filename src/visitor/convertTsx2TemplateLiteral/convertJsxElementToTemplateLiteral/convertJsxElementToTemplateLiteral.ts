@@ -201,11 +201,7 @@ export class ConvertJSXElementToTemplateLiteral {
           }
         });
 
-        if (jsx.openingElement.selfClosing) {
-          this.query += " />";
-        } else {
-          this.query += ">";
-        }
+        this.query += " />";
 
         if (this.unsafeMarkup) {
           this.queries.push(
@@ -254,18 +250,17 @@ export class ConvertJSXElementToTemplateLiteral {
           });
         }
 
-        if (!jsx.openingElement.selfClosing) {
-          if (!isJSXIdentifier(jsx.openingElement.name)) {
-            throw new Error("jsx should be identifier");
-          }
-
-          if (isJSXMemberExpression(jsx.closingElement?.name)) {
-            throw new Error(
-              "jsx closingElement shouldn't be jsx member expression"
-            );
-          }
-          this.query += `</${jsx.closingElement?.name.name}>`;
+        if (!isJSXIdentifier(jsx.openingElement.name)) {
+          throw new Error("jsx should be identifier");
         }
+
+        if (isJSXMemberExpression(jsx.closingElement?.name)) {
+          throw new Error(
+            "jsx closingElement shouldn't be jsx member expression"
+          );
+        }
+
+        this.query += `</${jsx.openingElement.name.name}>`;
       }
     }
 
