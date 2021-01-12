@@ -18,6 +18,7 @@ import {
   isJSXSpreadAttribute,
   isJSXText,
   isLiteral,
+  isMemberExpression,
   isObjectExpression,
   isObjectProperty,
   isSpreadProperty,
@@ -26,6 +27,7 @@ import {
   JSXExpressionContainer,
   JSXFragment,
   Literal,
+  MemberExpression,
   nullLiteral,
   Program,
   StringLiteral,
@@ -55,7 +57,7 @@ export class ConvertJSXElementToTemplateLiteral {
   queries: TemplateElement[];
   expressions: Expression[];
   query: string;
-  unsafeMarkup?: StringLiteral | Identifier;
+  unsafeMarkup?: StringLiteral | Identifier | MemberExpression;
   rootProgram: NodePath<Program>;
   constructor(props: JSXElement | JSXFragment, rootProgram: NodePath<Program>) {
     this.element = props;
@@ -149,11 +151,15 @@ export class ConvertJSXElementToTemplateLiteral {
 
                 if (isObjectProperty(html)) {
                   const markup = html.value;
-                  if (isStringLiteral(markup) || isIdentifier(markup)) {
+                  if (
+                    isStringLiteral(markup) ||
+                    isIdentifier(markup) ||
+                    isMemberExpression(markup)
+                  ) {
                     this.unsafeMarkup = markup;
                   } else {
                     throw new Error(
-                      "dangerouslySetInnerHTML.__html should be Identifier or StringLiteral"
+                      "dangerouslySetInnerHTML.__html should be Identifier or StringLiteral or MemberExpression"
                     );
                   }
                 }
