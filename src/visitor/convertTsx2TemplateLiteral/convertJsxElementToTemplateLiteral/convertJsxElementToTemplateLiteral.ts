@@ -207,7 +207,11 @@ export class ConvertJSXElementToTemplateLiteral {
           }
         });
 
-        this.query += " />";
+        if (jsx.openingElement.selfClosing) {
+          this.query += " />";
+        } else {
+          this.query += ">";
+        }
 
         if (this.unsafeMarkup) {
           this.queries.push(
@@ -265,8 +269,9 @@ export class ConvertJSXElementToTemplateLiteral {
             "jsx closingElement shouldn't be jsx member expression"
           );
         }
-
-        this.query += `</${jsx.openingElement.name.name}>`;
+        if (!jsx.openingElement.selfClosing) {
+          this.query += `</${jsx.openingElement.name.name}>`;
+        }
       }
     }
 
