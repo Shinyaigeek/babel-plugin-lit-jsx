@@ -75,4 +75,30 @@ describe("convertJsxElementToTemplateLiteral", () => {
     <div>asdf</div>
   \`;`);
   });
+
+  test("self closing jsx", () => {
+    const jsx = extractJsxElementFromSouceFile(
+      join(__dirname, "./__tests__/SelfClosing.tsx")
+    )[0];
+
+    // TODO fix type
+    const converter = new ConvertJSXElementToTemplateLiteral(jsx!, "" as any);
+
+    converter.traverse();
+
+    const raw = generate(
+      file(
+        program([
+          variableDeclaration("const", [
+            variableDeclarator(
+              identifier("SelfClosing"),
+              arrowFunctionExpression([], converter.render())
+            ),
+          ]),
+        ])
+      )
+    ).code;
+
+    expect(raw).toBe(`const SelfClosing = () => \`<input type="text" class="test" />\`;`);
+  });
 });
